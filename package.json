@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/Diluka/leancloud-demo/issues"
   },
-  "homepage": "https://github.com/Diluka/leancloud-demo#readme"
+  "homepage": "https://github.com/Diluka/leancloud-demo#readme",
+  "dependencies": {
+    "leanengine": "^1.2.0"
+  }
 }
