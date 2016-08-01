@@ -1,0 +1,4 @@
+[submodule "server"]
+	path = server
+	url = https://github.com/Diluka/leancloud-demo
+	branch = server
