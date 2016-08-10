@@ -1,6 +1,5 @@
-"use strict";
 /**
- * Created by Diluka on 2016-08-11.
+ * Created by Diluka on 2016-08-15.
  *
  *
  * ----------- 神 兽 佑 我 -----------
@@ -27,17 +26,21 @@
  *          ┗┻┛    ┗┻┛+ + + +
  * ----------- 永 无 BUG ------------
  */
-const AV = require("leanengine");
-const application_config_1 = require("./lib/application.config");
-const config = new application_config_1.ApplicationConfig();
-config.test = "dev";
-const index_1 = require("./index");
-AV.init({
-    appId: process.env.LEANCLOUD_APP_ID,
-    appKey: process.env.LEANCLOUD_APP_KEY,
-    masterKey: process.env.LEANCLOUD_APP_MASTER_KEY
-});
-// 如果不希望使用 masterKey 权限，可以将下面一行删除
-AV.Cloud.useMasterKey();
-index_1.app.listen(process.env.LEANCLOUD_APP_PORT, () => console.log(`server listen at ${process.env.LEANCLOUD_APP_PORT}`));
-//# sourceMappingURL=server.js.map
+import * as AV from "leanengine";
+import * as _ from "lodash";
+import {InterceptorInterface, InterceptorGlobal} from "routing-controllers";
+
+@InterceptorGlobal()
+export class AVObjectToJSONInterceptor implements InterceptorInterface {
+    intercept(request: any, response: any, result: any): any|Promise<any> {
+        if (_.isArray(result)) {
+            return _.map(result, (o: any)=>o instanceof AV.Object ? mapping(o) : o);
+        } else {
+            return result instanceof AV.Object ? mapping(result) : result;
+        }
+    }
+}
+
+function mapping(o: AV.Object) {
+    return _.extend({objectId: o.id, createdAt: o.createdAt, updatedAt: o.updatedAt}, o.attributes);
+}

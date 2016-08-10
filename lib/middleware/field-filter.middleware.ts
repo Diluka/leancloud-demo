@@ -1,6 +1,5 @@
-"use strict";
 /**
- * Created by Diluka on 2016-08-11.
+ * Created by Diluka on 2016-08-15.
  *
  *
  * ----------- 神 兽 佑 我 -----------
@@ -27,17 +26,19 @@
  *          ┗┻┛    ┗┻┛+ + + +
  * ----------- 永 无 BUG ------------
  */
-const AV = require("leanengine");
-const application_config_1 = require("./lib/application.config");
-const config = new application_config_1.ApplicationConfig();
-config.test = "dev";
-const index_1 = require("./index");
-AV.init({
-    appId: process.env.LEANCLOUD_APP_ID,
-    appKey: process.env.LEANCLOUD_APP_KEY,
-    masterKey: process.env.LEANCLOUD_APP_MASTER_KEY
-});
-// 如果不希望使用 masterKey 权限，可以将下面一行删除
-AV.Cloud.useMasterKey();
-index_1.app.listen(process.env.LEANCLOUD_APP_PORT, () => console.log(`server listen at ${process.env.LEANCLOUD_APP_PORT}`));
-//# sourceMappingURL=server.js.map
+import * as _ from "lodash";
+import * as Express from "express";
+import {MiddlewareInterface, Middleware} from "routing-controllers";
+import {Schema} from "../schema/index";
+
+@Middleware()
+export class FieldFilterMiddleware implements MiddlewareInterface {
+    use(request: Express.Request, response: any, next?: (err?: any) => any): any {
+        let className = request.query.fieldFilter;
+        let fields = Schema[className];
+        if (fields) {
+            request.body = _.pick(request.body, fields);
+        }
+        next();
+    }
+}
