@@ -1,7 +1,7 @@
 {
   "name": "leancloud-demo-server",
   "version": "1.0.0",
-  "description": "leancloud云引擎demo",
+  "description": "leancloud cloud engine demo",
   "main": "server.js",
   "scripts": {
     "postinstall": "typings i && tsc",
@@ -19,9 +19,14 @@
   "homepage": "https://github.com/Diluka/leancloud-demo#readme",
   "dependencies": {
     "body-parser": "^1.15.2",
+    "es6-shim": "^0.35.1",
     "express": "^4.14.0",
     "leanengine": "^1.2.0",
     "lodash": "^4.14.1",
+    "multer": "^1.2.0",
+    "reflect-metadata": "^0.1.4",
+    "routing-controllers": "^0.6.2",
+    "typedi": "^0.4.2",
     "typescript": "^1.8.10",
     "typings": "^1.3.2"
   },

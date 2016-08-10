@@ -1,2 +1,3 @@
 # leancloud-demo
-leancloud云引擎demo - typescript
+[leancloud](https://leancloud.cn/) cloud engine demo - use typescript
+
