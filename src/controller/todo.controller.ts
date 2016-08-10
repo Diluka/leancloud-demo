@@ -1,10 +1,10 @@
-import {Get, Post, UseInterceptor, Body, Controller} from "routing-controllers";
+import {Get, Post, UseInterceptor, Body, JsonController} from "routing-controllers";
 import {TodoService} from "../service/todo.service";
 import {Inject} from "typedi";
 import * as _ from "lodash";
 import * as AV from "leanengine";
 
-@Controller("/todos")
+@JsonController("/todos")
 export class TodoController {
 
     @Inject() private todoService: TodoService;

@@ -5,8 +5,8 @@ import {Todo} from "../entity";
 
 @Service()
 export class TodoService {
-    getAll() {
-        return new AV.Query(Todo).find<AV.Object[]>();
+    async getAll() {
+        return await new AV.Query(Todo).find<AV.Object[]>();
     }
 
     save(data) {
